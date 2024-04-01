@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCET-EEE</title>
+
+    <!--======================SWIPPER JS ===========================-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+    <!--====================== scrolling js =================================-->
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+    <section id="banner">
+        <img src="./orange gold.png" class="logo">
+        <div class="banner-text">
+            <h1>MEDICAL PLANT IDENTIFIER</h1>
+            <br>
+            <hr>
+            <p>Alagappa Chettiar Government College of Engg & Tech, Karaikudi-630003</p>
+            <hr>
+            <br>
+            <p>("Nature holds the key to our aesthetic, intellectual, cognitive and even spiritual satisfaction." - E. O. Wilson)</p>
+            <div class="banner-btn">
+                <!-- Link to upload form -->
+                <a href="#upload-form"><span></span>Upload</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="sideNav">
+        <nav>
+            <ul>
+                <li><a href="#banner"> HOME </a></li>
+                <li><a href="#feature"> FEATURES </a></li>
+                <li><a href="#facilities"> FACILITIES </a></li> 
+                <li><a href="#footer"> ABOUT US </a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="menuBtn">
+        <img src="./menu (2).png" id="menu">
+    </div>
+
+    <!-- Upload form -->
+    <section id="upload-form">
+        <form id="image-upload-form" enctype="multipart/form-data">
+            <input type="file" id="image-input" name="image" accept="image/*" required>
+            <button type="submit">Upload Image</button>
+        </form>
+    </section>
+
+    <!--========================== FOOTER =====================================-->
+    <section id="footer">
+        <!-- Footer content -->
+    </section>
+
+    <!--========================== SWIPPER JS ===============================-->
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="./main.js"></script>  
+
+    <script>
+        // Handle form submission
+        const form = document.getElementById('image-upload-form');
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/identify_plant', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to upload image');
+                }
+
+                const data = await response.json();
+                console.log('Response:', data);
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle error
+            }
+        });
+    </script>
+</body>
+</html>
